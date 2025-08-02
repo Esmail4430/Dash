@@ -1,0 +1,9 @@
+export { CourseManagement } from './CourseManagement';
+export { StudentManagement } from './StudentManagement';
+export { InstructorManagement } from './InstructorManagement';
+export { LessonManagement } from './LessonManagement';
+export { ExamManagement } from './ExamManagement';
+export { AttendanceManagement } from './AttendanceManagement';
+export { StudentExamManagement } from './StudentExamManagement';
+export { RecitationManagement } from './RecitationManagement';
+export { CourseFileManagement } from './CourseFileManagement';
