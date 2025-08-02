@@ -97,7 +97,23 @@ export const InstructorForm: React.FC<InstructorFormProps> = ({
   }));
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="px-8 py-6 border-b border-gray-100">
+        <h3 className="text-xl font-semibold text-gray-900">
+          {initialData ? 'Edit Instructor' : 'Add New Instructor'}
+        </h3>
+        <p className="text-sm text-gray-600 mt-1">
+          {initialData ? 'Update the instructor details below' : 'Fill in the details to register a new instructor'}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        {/* Personal Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Personal Information
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Full Name"
@@ -178,7 +194,14 @@ export const InstructorForm: React.FC<InstructorFormProps> = ({
           error={validationErrors.certificate?.[0]}
         />
       </div>
+        </div>
 
+        {/* Contact Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Contact & Address
+          </h4>
+          
       <Input
         label="Address"
         value={formData.address}
@@ -186,7 +209,14 @@ export const InstructorForm: React.FC<InstructorFormProps> = ({
         required
         error={validationErrors.address?.[0]}
       />
+        </div>
 
+        {/* Qualifications */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Qualifications & Expertise
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FileUpload
           label="Profile Image"
@@ -205,7 +235,14 @@ export const InstructorForm: React.FC<InstructorFormProps> = ({
           error={validationErrors.religious_qualifications?.[0]}
         />
       </div>
+        </div>
 
+        {/* Quran Knowledge */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Quran Knowledge & Certification
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <MultiSelect
           label="Quran Memorized Parts"
@@ -225,15 +262,18 @@ export const InstructorForm: React.FC<InstructorFormProps> = ({
           error={validationErrors.quran_passed_parts?.[0]}
         />
       </div>
+        </div>
 
-      <div className="flex justify-end space-x-3 pt-6 border-t">
+        {/* Form Actions */}
+        <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" loading={loading}>
+        <Button type="submit" loading={loading} size="lg">
           {initialData ? 'Update Instructor' : 'Create Instructor'}
         </Button>
       </div>
-    </form>
+      </form>
+    </div>
   );
 };

@@ -147,7 +147,23 @@ export const CourseForm: React.FC<CourseFormProps> = ({
 
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="px-8 py-6 border-b border-gray-100">
+        <h3 className="text-xl font-semibold text-gray-900">
+          {initialData ? 'Edit Course' : 'Create New Course'}
+        </h3>
+        <p className="text-sm text-gray-600 mt-1">
+          {initialData ? 'Update the course details below' : 'Fill in the details to create a new course'}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        {/* Basic Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Basic Information
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Course Type */}
         <div>
@@ -237,8 +253,23 @@ export const CourseForm: React.FC<CourseFormProps> = ({
           )}
         </div>
       </div>
+          </div>
+        </div>
+        </div>
 
+        {/* Schedule & Duration */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Schedule & Duration
+          </h4>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Description */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Course Details
+          </h4>
+          
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Description
@@ -246,15 +277,24 @@ export const CourseForm: React.FC<CourseFormProps> = ({
         <textarea
           value={formData.description}
           onChange={(e) => handleChange("description", e.target.value)}
-          rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0e4d3c] focus:border-transparent"
+          rows={4}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#0e4d3c] focus:border-transparent transition-all duration-200 resize-none"
+          placeholder="Provide a detailed description of the course content, objectives, and expectations..."
           required
         />
         {errors.description && (
           <p className="text-red-600 text-sm mt-1">{errors.description[0]}</p>
         )}
       </div>
+        </div>
 
+        {/* Media & Files */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Media & Files
+          </h4>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Image */}
       <div>
         <FileUpload
@@ -296,20 +336,28 @@ export const CourseForm: React.FC<CourseFormProps> = ({
           <p className="text-red-600 text-sm mt-1">{errors.file_name[0]}</p>
         )}
       </div>
+          </div>
+        </div>
 
+        {/* Participants */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Course Participants
+          </h4>
+          
       {/* Instructors */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-semibold text-gray-800 mb-4">
           Select Instructors
         </label>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-40 overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-4 bg-gray-50">
           {instructors.map((instructor) => (
             <div
               key={instructor.id}
               className={`p-3 border rounded-lg cursor-pointer transition-all ${
                 formData.instructors.includes(instructor.id!)
-                  ? "border-[#0e4d3c] bg-green-50"
-                  : "border-gray-200 hover:border-gray-300"
+                  ? "border-[#0e4d3c] bg-green-50 shadow-md"
+                  : "border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm"
               }`}
               onClick={() => toggleSelection("instructors", instructor.id!)}
             >
@@ -341,17 +389,17 @@ export const CourseForm: React.FC<CourseFormProps> = ({
 
       {/* Students */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-semibold text-gray-800 mb-4">
           Select Students
         </label>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-40 overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-4 bg-gray-50">
           {students.map((student) => (
             <div
               key={student.id}
               className={`p-3 border rounded-lg cursor-pointer transition-all ${
                 formData.students.includes(student.id!)
-                  ? "border-[#0e4d3c] bg-green-50"
-                  : "border-gray-200 hover:border-gray-300"
+                  ? "border-[#0e4d3c] bg-green-50 shadow-md"
+                  : "border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm"
               }`}
               onClick={() => toggleSelection("students", student.id!)}
             >
@@ -380,15 +428,18 @@ export const CourseForm: React.FC<CourseFormProps> = ({
           </p>
         )}
       </div>
+        </div>
 
-      <div className="flex justify-end space-x-3 pt-6 border-t">
+        {/* Form Actions */}
+        <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" loading={loading}>
+        <Button type="submit" loading={loading} size="lg">
           {initialData ? "Update Course" : "Create Course"}
         </Button>
       </div>
-    </form>
+      </form>
+    </div>
   );
 };

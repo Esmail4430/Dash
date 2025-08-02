@@ -104,7 +104,23 @@ export const StudentForm: React.FC<StudentFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="px-8 py-6 border-b border-gray-100">
+        <h3 className="text-xl font-semibold text-gray-900">
+          {initialData ? 'Edit Student' : 'Add New Student'}
+        </h3>
+        <p className="text-sm text-gray-600 mt-1">
+          {initialData ? 'Update the student details below' : 'Fill in the details to register a new student'}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        {/* Personal Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Personal Information
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Full Name"
@@ -187,7 +203,14 @@ export const StudentForm: React.FC<StudentFormProps> = ({
           error={validationErrors.enroll_date?.[0]}
         />
       </div>
+        </div>
 
+        {/* Contact Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Contact & Address
+          </h4>
+          
       <Input
         label="Address"
         value={formData.address}
@@ -195,7 +218,14 @@ export const StudentForm: React.FC<StudentFormProps> = ({
         required
         error={validationErrors.address?.[0]}
       />
+        </div>
 
+        {/* Academic Information */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Academic Details
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Certificate"
@@ -217,7 +247,14 @@ export const StudentForm: React.FC<StudentFormProps> = ({
           helperText="Upload a profile image"
         />
       </div>
+        </div>
 
+        {/* Quran Progress */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+            Quran Memorization Progress
+          </h4>
+          
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <MultiSelect
           label="Quran Memorized Parts"
@@ -237,15 +274,18 @@ export const StudentForm: React.FC<StudentFormProps> = ({
           error={validationErrors.quran_passed_parts?.[0]}
         />
       </div>
+        </div>
 
-      <div className="flex justify-end space-x-3 pt-6 border-t">
+        {/* Form Actions */}
+        <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" loading={loading}>
+        <Button type="submit" loading={loading} size="lg">
           {initialData ? "Update Student" : "Create Student"}
         </Button>
       </div>
-    </form>
+      </form>
+    </div>
   );
 };
